@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preferences_game_type">ru.game.hat.gameType</string>
+    <string name="preferences_level">ru.game.hat.level</string>
+    <string name="preferences_word_count">ru.game.hat.wordCount</string>
+    <string name="preferences_player">ru.game.hat.player</string>
+    
+    <string name="game_bundle">ru.game.hat.game_bundle</string>
+    <string name="game_players">ru.game.hat.game_players</string>
+</resources>

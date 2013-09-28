@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Шляпа</string>
+    <string name="action_settings">Настройки</string>
+    <string name="gameType">Тип игры:</string>
+    <string name="level">Уровень сложности: </string>
+    <string name="teamHint">Число игроков должно быть парным</string>
+    <string name="addPlayer">Добавить игрока</string>
+    <string name="start">Начать игру</string>
+    <string name="typeTeam">Командная</string>
+    <string name="typeRound">По кругу</string>
+
+    <string-array name="levelsArray">
+        <item>Простой</item>
+        <item>Средний</item>
+        <item>Сложный</item>
+    </string-array>
+
+    <string name="title_activity_game">Шляпа: Игра</string>
+    <string name="win_button">Угадали</string>
+    <string name="next_button">Поехали</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
