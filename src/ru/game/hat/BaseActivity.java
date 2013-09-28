@@ -9,12 +9,12 @@ public abstract class BaseActivity extends Activity {
 		return (T) findViewById(id);
 	}
 	
-	protected void hideHint(int id) {
+	protected void hide(int id) {
 		final View hint = view(id);
 		hint.setVisibility(View.GONE);
 	}
 	
-	protected void showHint(int id) {
+	protected void show(int id) {
 		final View hint = view(id);
 		hint.setVisibility(0);
 	}

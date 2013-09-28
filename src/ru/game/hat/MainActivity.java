@@ -1,8 +1,10 @@
 package ru.game.hat;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ru.game.hat.util.PreferencesUtil;
 import ru.game.hat.util.StringUtils;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,11 +12,13 @@ import android.text.TextWatcher;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
@@ -22,6 +26,7 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 	public static String PREFERENCES_FILE_KEY = "rugamehat_preferences_ui";
 	private PreferencesUtil prefs;
 	private String typeKey;
+	private Map<Integer, Integer> playerControls = new HashMap<Integer, Integer>();
 	
 	private SparseArray<String> players = new SparseArray<String>();
 	private int playersCount = 1;
@@ -70,7 +75,7 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 			final RadioButton radio = view(type);
 			radio.setChecked(true);
 		}
-		if (type == R.id.roundRadio) hideHint(R.id.teamHint);
+		if (type == R.id.roundRadio) hide(R.id.teamHint);
 		
 		restorePlayers();
 		
@@ -83,6 +88,12 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 			prefs.set(levelKey, levelPos);
 		}
 		spinner.setSelection(levelPos);
+		
+		LinearLayout controls = view(R.id.playersContainer);
+		for (int i = 0; i < controls.getChildCount(); i += 1) {
+			View child = controls.getChildAt(i);
+			playerControls.put(i, child.getId());
+		}
 	}
 	
 	/**
@@ -96,9 +107,9 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 		String playerName = prefs.get(playerKey + i, String.class);
 		while (playerName != null) {
 			players.put(i, playerName);
-			final EditText edit = view(R.id.player1);//TODO create new edit texts for players
+			final EditText edit = view(R.id.playerText1);//TODO create new edit texts for players
 			edit.setText(playerName);
-			assignPlayerListener(i, R.id.player1);
+			assignPlayerListener(i, R.id.playerText1);
 			
 			i += 1;
 			playerName = prefs.get(playerKey + i, String.class);
@@ -106,7 +117,7 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 		
 		// don't start game without players
 		if (players.size() == 0) {
-			assignPlayerListener(1, R.id.player1);
+			assignPlayerListener(1, R.id.playerText1);
 			
 			final Button startButton = view(R.id.startButton);
 //			startButton.setEnabled(false);
@@ -150,9 +161,9 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 		final int id = view.getId();
 		prefs.set(typeKey, id);
 		if (checked && id == R.id.roundRadio) {
-			hideHint(R.id.teamHint);
+			hide(R.id.teamHint);
 		} else if (checked && id == R.id.teamRadio) {
-			showHint(R.id.teamHint);
+			show(R.id.teamHint);
 		}
 	}
 	
@@ -176,4 +187,14 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 		startActivity(intent);
 	}
 	
+	public void addPlayer(View view) {
+		show(playerControls.get(playersCount));
+		playersCount += 1;
+	}
+	
+	public void delPlayer(View view) {
+		LinearLayout parent = (LinearLayout) view.getParent();
+		playersCount -= 1;
+		hide(playerControls.get(playersCount));
+	}
 }
