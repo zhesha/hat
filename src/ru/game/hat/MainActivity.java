@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -107,9 +109,9 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 		String playerName = prefs.get(playerKey + i, String.class);
 		while (playerName != null) {
 			players.put(i, playerName);
-			final EditText edit = view(R.id.playerText1);//TODO create new edit texts for players
+			final EditText edit = (EditText) persistPlayerView();//TODO create new edit texts for players
 			edit.setText(playerName);
-			assignPlayerListener(i, R.id.playerText1);
+			assignPlayerListener(i, edit);
 			
 			i += 1;
 			playerName = prefs.get(playerKey + i, String.class);
@@ -117,15 +119,16 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 		
 		// don't start game without players
 		if (players.size() == 0) {
-			assignPlayerListener(1, R.id.playerText1);
+			//TODO don't start game without players
+			//assignPlayerListener(1, edit);
 			
-			final Button startButton = view(R.id.startButton);
+			//final Button startButton = view(R.id.startButton);
 //			startButton.setEnabled(false);
 		}
 	}
 	
-	private void assignPlayerListener(int id, int inputId) {
-		final EditText playerInput = view(inputId);
+	private void assignPlayerListener(int id, EditText playerInput) {
+		//final EditText playerInput = view(inputId);
 		playerInput.addTextChangedListener(new PlayerTextChangeListener(id));
 	}
 	
@@ -188,13 +191,23 @@ public class MainActivity extends BaseActivity implements OnItemSelectedListener
 	}
 	
 	public void addPlayer(View view) {
-		show(playerControls.get(playersCount));
-		playersCount += 1;
+		persistPlayerView();
 	}
 	
 	public void delPlayer(View view) {
 		LinearLayout parent = (LinearLayout) view.getParent();
 		playersCount -= 1;
-		hide(playerControls.get(playersCount));
+		LinearLayout linLayout = (LinearLayout) findViewById(R.id.playersContainer);
+		linLayout.removeView(parent);
+	}
+	
+	private View persistPlayerView() {
+		playersCount += 1;
+		LayoutInflater ltInflater = getLayoutInflater();
+        View template = ltInflater.inflate(R.layout.player_name_template, null, false);
+        
+        LinearLayout linLayout = (LinearLayout) findViewById(R.id.playersContainer);
+        linLayout.addView(template);
+        return (View) ((ViewGroup) template).getChildAt(0);
 	}
 }

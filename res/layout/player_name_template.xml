@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	        android:id="@+id/player1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        <EditText
+	            android:id="@+id/playerText1"
+	            android:layout_weight="1"
+	            android:layout_height="wrap_content"
+	            android:layout_width="0dp"
+	            android:ems="10"
+	            android:inputType="textPersonName" >
+	            <requestFocus />
+	        </EditText>
+	        <Button
+	            android:id="@+id/deleteUser1"
+	            style="?android:attr/buttonStyleSmall"
+	            android:layout_width="50dp"
+	            android:layout_height="wrap_content"
+	            android:text="del"
+	            android:onClick="delPlayer" />
+	    </LinearLayout>
