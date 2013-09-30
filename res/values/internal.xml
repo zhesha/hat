@@ -7,4 +7,6 @@
     
     <string name="game_bundle">ru.game.hat.game_bundle</string>
     <string name="game_players">ru.game.hat.game_players</string>
+    <string name="game_word_count">ru.game.hat.game_word_count</string>
+    <string name="game_level">ru.game.hat.game_level</string>
 </resources>

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class WordSupport {
+	// TODO use assets here!
 	public static final String ROOT_DIR = "g:/project/notandroid/shlyapa/";
 	public static final File RU_FOLDER = new File(ROOT_DIR + RUS.getDesc());
 	public static final File EN_FOLDER = new File(ROOT_DIR + ENG.getDesc());
@@ -43,7 +44,7 @@ public class WordSupport {
 
 		private final int gameSize;
 		private final List<Word> words;
-		private int count = 0;
+		private int index = 0;
 
 		private Game(List<Word> words) {
 			this.gameSize = words.size();
@@ -51,12 +52,13 @@ public class WordSupport {
 		}
 
 		public boolean hasWord() {
-			return count < gameSize;
+			return index < gameSize;
 		}
 
 		public Word next() {
-			count += 1;
-			return words.get(0);
+			final Word word = words.get(index);
+			index += 1;
+			return word;
 		}
 	}
 
