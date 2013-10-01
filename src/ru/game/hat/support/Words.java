@@ -55,6 +55,7 @@ public class Words {
 			}
 
 			Collections.shuffle(result);
+			reader.close();
 			return result;
 		} catch (IOException io) {
 			throw io;
